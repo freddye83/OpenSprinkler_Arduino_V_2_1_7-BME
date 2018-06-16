@@ -61,6 +61,7 @@ byte OpenSprinkler_Arduino_ButtonClass::read(byte waitMode)
     // Button 1 = Increase  = Up and Right
     // Button 2 = Decrease = Down and Left
     // Button 3 = Select = Select
+
     switch (curr)
     {
     case BUTTON_UP:

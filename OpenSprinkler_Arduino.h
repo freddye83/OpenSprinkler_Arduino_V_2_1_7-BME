@@ -243,10 +243,10 @@ About:		This is a fork of Rays OpenSprinkler code thats amended to use alternati
 
     // ADC readings expected for the 5 buttons on the ADC input
     #define RIGHT_10BIT_ADC		0		// right
-    #define UP_10BIT_ADC		145		// up
-    #define DOWN_10BIT_ADC		329		// down
-    #define LEFT_10BIT_ADC		505		// left
-    #define SELECT_10BIT_ADC	741		// select
+    #define UP_10BIT_ADC		  99 //145		// up
+    #define DOWN_10BIT_ADC		256 // 329		// down
+    #define LEFT_10BIT_ADC		410 //505		// left
+    #define SELECT_10BIT_ADC	640 // 741		// select
     #define BUTTONHYSTERESIS	10		// hysteresis for valid button sensing window
 
     #define BUTTON_RIGHT		1		// values used for detecting analog buttons

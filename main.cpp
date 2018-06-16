@@ -165,12 +165,9 @@ void ui_state_machine() {
 
   // read button, if something is pressed, wait till release
   byte button = os.button_read(BUTTON_WAIT_HOLD);
-   DEBUG_PRINTLN(button);
   if (button & BUTTON_FLAG_DOWN) {   // repond only to button down events
     os.button_timeout = LCD_BACKLIGHT_TIMEOUT;
     os.lcd_set_brightness(1);
-    DEBUG_PRINT("Bouton");
-    DEBUG_PRINTLN(button);
   } else {
     return;
   }
@@ -179,14 +176,10 @@ void ui_state_machine() {
   case UI_STATE_DEFAULT:
     switch (button & BUTTON_MASK) {
     case BUTTON_1:
-    	DEBUG_PRINTLN("Bouton1");
       if (button & BUTTON_FLAG_HOLD) {  // holding B1
-    	  DEBUG_PRINTLN("holding B1");
         if (digitalReadExt(PIN_BUTTON_3)==0) { // if B3 is pressed while holding B1, run a short test (internal test)
           manual_start_program(255, 0);
-          DEBUG_PRINTLN("Bouton1+3");
         } else if (digitalReadExt(PIN_BUTTON_2)==0) { // if B2 is pressed while holding B1, display gateway IP
-        	DEBUG_PRINTLN("Bouton1+2");
         	#ifdef ESP8266
           os.lcd.clear(0, 1);
           os.lcd.setCursor(0, 0);
@@ -222,18 +215,14 @@ void ui_state_machine() {
       }
       break;
     case BUTTON_2:
-    	DEBUG_PRINTLN("Bouton2");
       if (button & BUTTON_FLAG_HOLD) {  // holding B2
-    	  DEBUG_PRINTLN("holding B2");
         if (digitalReadExt(PIN_BUTTON_1)==0) { // if B1 is pressed while holding B2, display external IP
-        	DEBUG_PRINTLN("Bouton2+1");
         	os.lcd_print_ip((byte*)(&os.nvdata.external_ip), 1);
           os.lcd.setCursor(0, 1);
           os.lcd_print_pgm(PSTR("(eip)"));
           ui_state = UI_STATE_DISP_IP;
         } else if (digitalReadExt(PIN_BUTTON_3)==0) {  // if B3 is pressed while holding B2, display last successful weather call
           //os.lcd.clear(0, 1);
-        	DEBUG_PRINTLN("Bouton2+3");
           os.lcd_print_time(os.checkwt_success_lasttime);
           os.lcd.setCursor(0, 1);
           os.lcd_print_pgm(PSTR("(lswc)"));
@@ -255,11 +244,8 @@ void ui_state_machine() {
       }
       break;
     case BUTTON_3:
-    	DEBUG_PRINTLN("Bouton3");
       if (button & BUTTON_FLAG_HOLD) {  // holding B3
-    	  DEBUG_PRINTLN("holding B3");
         if (digitalReadExt(PIN_BUTTON_1)==0) {  // if B1 is pressed while holding B3, display up time
-        	DEBUG_PRINTLN("Bouton3+1");
         	os.lcd_print_time(os.powerup_lasttime);
           os.lcd.setCursor(0, 1);
           os.lcd_print_pgm(PSTR("(lupt)"));
@@ -288,7 +274,6 @@ void ui_state_machine() {
   case UI_STATE_RUNPROG:
     if ((button & BUTTON_MASK)==BUTTON_3) {
       if (button & BUTTON_FLAG_HOLD) {
-    	  DEBUG_PRINTLN("Bouton3 start");
         // start
         manual_start_program(ui_state_runprog, 0);
         ui_state = UI_STATE_DEFAULT;
